@@ -2,7 +2,6 @@ package com.yolotech.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yolotech.api.entities.enums.CourseStatus;
-import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;

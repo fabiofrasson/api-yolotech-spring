@@ -1,8 +1,11 @@
 package com.yolotech.api.config;
 
+import com.yolotech.api.entities.Account;
 import com.yolotech.api.entities.Category;
 import com.yolotech.api.entities.Course;
+import com.yolotech.api.entities.enums.AccRole;
 import com.yolotech.api.entities.enums.CourseStatus;
+import com.yolotech.api.repositories.AccountRepository;
 import com.yolotech.api.repositories.CategoryRepository;
 import com.yolotech.api.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ public class TestConfig implements CommandLineRunner {
   @Autowired private CategoryRepository categoryRepository;
 
   @Autowired private CourseRepository courseRepository;
+
+  @Autowired private AccountRepository accountRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -75,6 +80,46 @@ public class TestConfig implements CommandLineRunner {
             true,
             true);
 
+    Account account =
+        new Account(
+            null,
+            "Fabio Frasson",
+            "Estudante de Java",
+            "fabio.frass@gmail.com",
+            "fabiofrasson",
+            "Bio test",
+            "https://github.com/fabiofrasson",
+            "https://www.linkedin.com/in/fabiofrasson/",
+            "123456",
+            AccRole.ADMIN,
+            Instant.parse("2021-05-09T18:24:30Z"),
+            true);
+    Account account1 = new Account(null,
+            "Wilian Bueno",
+            "Estudante de Python",
+            "wil.bueno@gmail.com",
+            "wilbueno",
+            "Bio test",
+            "https://github.com/wilbueno",
+            "https://www.linkedin.com/in/wilbueno/",
+            "123456",
+            AccRole.COMPANYADMIN,
+            Instant.parse("2021-05-09T18:24:30Z"),
+            true);
+    Account account2 = new Account(null,
+            "Kennedy Bueno",
+            "Estudante de Lumion",
+            "kennedy.bueno@gmail.com",
+            "kenbueno",
+            "Bio test",
+            "https://github.com/kenbueno",
+            "https://www.linkedin.com/in/kenbueno/",
+            "123456",
+            AccRole.STUDENT,
+            Instant.parse("2021-05-09T18:24:30Z"),
+            true);
+
+    accountRepository.saveAll(Arrays.asList(account, account1, account2));
     categoryRepository.saveAll(Arrays.asList(category, category1, category2));
     courseRepository.saveAll(Arrays.asList(course, course1, course2));
   }
