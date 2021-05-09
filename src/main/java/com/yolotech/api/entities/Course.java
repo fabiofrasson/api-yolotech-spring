@@ -1,5 +1,6 @@
 package com.yolotech.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,7 +39,15 @@ public class Course implements Serializable {
   @Getter @Setter private Double price;
   @Getter @Setter private Double length;
   @Getter @Setter private String slug;
-  @Getter @Setter private Instant moment;
+
+  @JsonFormat(
+      shape = JsonFormat.Shape.STRING,
+      pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+      timezone = "GMT")
+  @Getter
+  @Setter
+  private Instant regDate;
+
   @Getter @Setter private boolean isEdited;
   @Getter @Setter private boolean isActive;
 }
