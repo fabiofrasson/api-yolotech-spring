@@ -2,6 +2,7 @@ package com.yolotech.api.config;
 
 import com.yolotech.api.entities.Category;
 import com.yolotech.api.entities.Course;
+import com.yolotech.api.entities.enums.CourseStatus;
 import com.yolotech.api.repositories.CategoryRepository;
 import com.yolotech.api.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,50 +28,52 @@ public class TestConfig implements CommandLineRunner {
     Category category2 = Category.builder().id(null).name("Full Stack").isActive(true).build();
 
     Course course =
-        Course.builder()
-            .id(null)
-            .name("Front-End Completo")
-            .description("Curso completo de front-end!")
-            .instructor("João Amarante")
-            .categoryList(Arrays.asList(category))
-            .site("https://www.frontendcompleto.com.br")
-            .price(250.0)
-            .length(35.0)
-            .slug("front-end-completo")
-            .regDate(Instant.parse("2021-05-08T20:46:05Z"))
-            .isEdited(true)
-            .isActive(true)
-            .build();
+        new Course(
+            null,
+            "Front-End Completo",
+            "Curso completo de front-end!",
+            "João Amaral",
+            Arrays.asList(category),
+            "https://www.frontendcompleto.com.br",
+            250.0,
+            35.0,
+            "frontend-completo",
+            Instant.parse("2021-05-08T20:46:05Z"),
+            CourseStatus.PENDING,
+            true,
+            true);
+
     Course course1 =
-        Course.builder()
-            .id(null)
-            .name("Back-End Completo")
-            .description("Curso completo de back-end!")
-            .instructor("Eduardo Ferreira")
-            .categoryList(Arrays.asList(category1))
-            .site("https://www.backendcompleto.com.br")
-            .price(350.0)
-            .length(55.0)
-            .slug("back-end-completo")
-            .regDate(Instant.parse("2021-05-08T20:46:05Z"))
-            .isEdited(true)
-            .isActive(true)
-            .build();
+        new Course(
+            null,
+            "Back-End Completo",
+            "Curso completo de back-end!",
+            "Eduardo Ferreira",
+            Arrays.asList(category1),
+            "https://www.backendcompleto.com.br",
+            350.0,
+            55.0,
+            "backend-completo",
+            Instant.parse("2021-05-08T20:46:05Z"),
+            CourseStatus.APPROVED,
+            true,
+            true);
+
     Course course2 =
-        Course.builder()
-            .id(null)
-            .name("Dev-Ops Completo")
-            .description("Curso completo de dev-ops!")
-            .instructor("Luciano Cabral")
-            .categoryList(Arrays.asList(category2))
-            .site("https://www.devopscompleto.com.br")
-            .price(550.0)
-            .length(75.0)
-            .slug("devops-completo")
-            .regDate(Instant.parse("2021-05-08T20:46:05Z"))
-            .isEdited(true)
-            .isActive(true)
-            .build();
+        new Course(
+            null,
+            "Dev-Ops Completo",
+            "Curso completo de dev-ops!",
+            "Luciano Cabral",
+            Arrays.asList(category2),
+            "https://www.devopscompleto.com.br",
+            550.0,
+            75.0,
+            "devops-completo",
+            Instant.parse("2021-05-08T20:46:05Z"),
+            CourseStatus.REJECTED,
+            true,
+            true);
 
     categoryRepository.saveAll(Arrays.asList(category, category1, category2));
     courseRepository.saveAll(Arrays.asList(course, course1, course2));
