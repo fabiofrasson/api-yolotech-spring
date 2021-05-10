@@ -21,4 +21,12 @@ public class AccountService {
     Optional<Account> optionalAccount = accountRepository.findById(id);
     return optionalAccount.get();
   }
+
+  public Account insert(Account account) {
+    return accountRepository.save(account);
+  }
+
+  public void delete(Long id) {
+    accountRepository.deleteById(id);
+  }
 }

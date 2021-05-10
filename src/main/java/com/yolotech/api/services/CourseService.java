@@ -23,4 +23,12 @@ public class CourseService {
     Optional<Course> optionalCourse = courseRepository.findById(id);
     return optionalCourse.get();
   }
+
+  public Course insert(Course course) {
+    return courseRepository.save(course);
+  }
+
+  public void delete(Long id) {
+    courseRepository.deleteById(id);
+  }
 }

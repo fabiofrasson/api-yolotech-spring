@@ -21,4 +21,12 @@ public class CategoryService {
     Optional<Category> optionalCategory = categoryRepository.findById(id);
     return optionalCategory.get();
   }
+
+  public Category insert(Category category) {
+    return categoryRepository.save(category);
+  }
+
+  public void delete(Long id) {
+    categoryRepository.deleteById(id);
+  }
 }

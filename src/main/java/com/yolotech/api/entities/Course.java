@@ -29,6 +29,11 @@ public class Course implements Serializable {
       inverseJoinColumns = @JoinColumn(name = "categoryId"))
   private List<Category> categoryList = new ArrayList<>();
 
+  @ManyToOne
+  @JoinColumn(name = "userId")
+  // @JoinColumn -> name: representa o nome da chave estrangeira que identifica a classe Account
+  private Account user;
+
   private String site;
   private Double price;
   private Double length;
@@ -52,7 +57,7 @@ public class Course implements Serializable {
       String name,
       String description,
       String instructor,
-      List<Category> categoryList,
+      Account user,
       String site,
       Double price,
       Double length,
@@ -65,7 +70,7 @@ public class Course implements Serializable {
     this.name = name;
     this.description = description;
     this.instructor = instructor;
-    this.categoryList = categoryList;
+    this.user = user;
     this.site = site;
     this.price = price;
     this.length = length;
@@ -114,10 +119,6 @@ public class Course implements Serializable {
 
   public List<Category> getCategoryList() {
     return categoryList;
-  }
-
-  public void setCategoryList(List<Category> categoryList) {
-    this.categoryList = categoryList;
   }
 
   public String getSite() {

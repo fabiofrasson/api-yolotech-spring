@@ -6,6 +6,8 @@ import com.yolotech.api.entities.enums.AccRole;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -26,6 +28,9 @@ public class Account implements Serializable {
   private String passwd;
   private Integer accRole;
 
+  @OneToMany(mappedBy = "user")
+  private List<Course> courseList = new ArrayList<>();
+
   @JsonFormat(
       shape = JsonFormat.Shape.STRING,
       pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
@@ -34,7 +39,8 @@ public class Account implements Serializable {
 
   private boolean isActive;
 
-  public Account() {}
+  public Account() {
+  }
 
   public Account(
       Long id,
@@ -143,6 +149,10 @@ public class Account implements Serializable {
     if (accRole != null) {
       this.accRole = accRole.getCode();
     }
+  }
+
+  public List<Course> getCourseList() {
+    return courseList;
   }
 
   public Instant getRegDate() {
