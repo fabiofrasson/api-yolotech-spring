@@ -2,6 +2,7 @@ package com.yolotech.api.services;
 
 import com.yolotech.api.entities.Category;
 import com.yolotech.api.repositories.CategoryRepository;
+import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class CategoryService {
 
   public Category findById(Long id) {
     Optional<Category> optionalCategory = categoryRepository.findById(id);
-    return optionalCategory.get();
+    return optionalCategory.orElseThrow(() -> new ResourceNotFoundException(id));
   }
 
   public Category insert(Category category) {

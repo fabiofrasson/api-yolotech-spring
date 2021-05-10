@@ -1,10 +1,8 @@
 package com.yolotech.api.services;
 
-import com.yolotech.api.entities.Account;
-import com.yolotech.api.entities.Category;
 import com.yolotech.api.entities.Course;
-import com.yolotech.api.repositories.CategoryRepository;
 import com.yolotech.api.repositories.CourseRepository;
+import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ public class CourseService {
 
   public Course findById(Long id) {
     Optional<Course> optionalCourse = courseRepository.findById(id);
-    return optionalCourse.get();
+    return optionalCourse.orElseThrow(() -> new ResourceNotFoundException(id));
   }
 
   public Course insert(Course course) {

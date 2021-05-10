@@ -1,8 +1,8 @@
 package com.yolotech.api.services;
 
 import com.yolotech.api.entities.Account;
-import com.yolotech.api.entities.Category;
 import com.yolotech.api.repositories.AccountRepository;
+import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class AccountService {
 
   public Account findById(Long id) {
     Optional<Account> optionalAccount = accountRepository.findById(id);
-    return optionalAccount.get();
+    return optionalAccount.orElseThrow(() -> new ResourceNotFoundException(id));
   }
 
   public Account insert(Account account) {
