@@ -4,6 +4,7 @@ import com.yolotech.api.entities.Account;
 import com.yolotech.api.repositories.AccountRepository;
 import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,11 @@ public class AccountService {
   }
 
   public void delete(Long id) {
-    accountRepository.deleteById(id);
+    try {
+      accountRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new ResourceNotFoundException(id);
+    }
   }
 
   public Account update(Long id, Account account) {

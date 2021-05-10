@@ -4,6 +4,7 @@ import com.yolotech.api.entities.Course;
 import com.yolotech.api.repositories.CourseRepository;
 import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,11 @@ public class CourseService {
   }
 
   public void delete(Long id) {
-    courseRepository.deleteById(id);
+    try {
+      courseRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new ResourceNotFoundException(id);
+    }
   }
 
   public Course update(Long id, Course course) {

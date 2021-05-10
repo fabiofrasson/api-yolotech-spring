@@ -2,8 +2,11 @@ package com.yolotech.api.services;
 
 import com.yolotech.api.entities.Category;
 import com.yolotech.api.repositories.CategoryRepository;
+import com.yolotech.api.services.exceptions.DatabaseException;
 import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +31,13 @@ public class CategoryService {
   }
 
   public void delete(Long id) {
-    categoryRepository.deleteById(id);
+    try {
+      categoryRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new ResourceNotFoundException(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new DatabaseException(e.getMessage());
+    }
   }
 
   public Category update(Long id, Category category) {
