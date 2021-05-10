@@ -29,4 +29,15 @@ public class CategoryService {
   public void delete(Long id) {
     categoryRepository.deleteById(id);
   }
+
+  public Category update(Long id, Category category) {
+    Category categoryEntity = categoryRepository.getOne(id);
+    updateData(categoryEntity, category);
+    return categoryRepository.save(categoryEntity);
+  }
+
+  private void updateData(Category categoryEntity, Category category) {
+    categoryEntity.setName(category.getName());
+    categoryEntity.setActive(category.isActive());
+  }
 }

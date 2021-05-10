@@ -1,5 +1,6 @@
 package com.yolotech.api.services;
 
+import com.yolotech.api.entities.Account;
 import com.yolotech.api.entities.Category;
 import com.yolotech.api.entities.Course;
 import com.yolotech.api.repositories.CategoryRepository;
@@ -30,5 +31,22 @@ public class CourseService {
 
   public void delete(Long id) {
     courseRepository.deleteById(id);
+  }
+
+  public Course update(Long id, Course course) {
+    Course courseEntity = courseRepository.getOne(id);
+    updateData(courseEntity, course);
+    return courseRepository.save(courseEntity);
+  }
+
+  private void updateData(Course courseEntity, Course course) {
+    courseEntity.setName(course.getName());
+    courseEntity.setDescription(course.getDescription());
+    courseEntity.setInstructor(course.getInstructor());
+    courseEntity.setSite(course.getSite());
+    courseEntity.setPrice(course.getPrice());
+    courseEntity.setLength(course.getLength());
+    courseEntity.setSlug(course.getSlug());
+    courseEntity.setActive(course.isActive());
   }
 }

@@ -1,6 +1,7 @@
 package com.yolotech.api.services;
 
 import com.yolotech.api.entities.Account;
+import com.yolotech.api.entities.Category;
 import com.yolotech.api.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,22 @@ public class AccountService {
 
   public void delete(Long id) {
     accountRepository.deleteById(id);
+  }
+
+  public Account update(Long id, Account account) {
+    Account accountEntity = accountRepository.getOne(id);
+    updateData(accountEntity, account);
+    return accountRepository.save(accountEntity);
+  }
+
+  private void updateData(Account accountEntity, Account account) {
+    accountEntity.setFullName(account.getFullName());
+    accountEntity.setTitle(account.getTitle());
+    accountEntity.setContato(account.getContato());
+    accountEntity.setUsername(account.getUsername());
+    accountEntity.setBio(account.getBio());
+    accountEntity.setGithub(account.getGithub());
+    accountEntity.setLinkedIn(account.getLinkedIn());
+    accountEntity.setActive(account.isActive());
   }
 }

@@ -1,5 +1,7 @@
 package com.yolotech.api.resources;
 
+import com.yolotech.api.entities.Account;
+import com.yolotech.api.entities.Category;
 import com.yolotech.api.entities.Course;
 import com.yolotech.api.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,11 @@ public class CourseResource {
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     courseService.delete(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<Course> update(@PathVariable Long id, @RequestBody Course course) {
+    course = courseService.update(id, course);
+    return ResponseEntity.ok().body(course);
   }
 }

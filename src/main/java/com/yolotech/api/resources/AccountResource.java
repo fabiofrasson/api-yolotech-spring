@@ -1,6 +1,7 @@
 package com.yolotech.api.resources;
 
 import com.yolotech.api.entities.Account;
+import com.yolotech.api.entities.Category;
 import com.yolotech.api.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,11 @@ public class AccountResource {
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     accountService.delete(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<Account> update(@PathVariable Long id, @RequestBody Account account) {
+    account = accountService.update(id, account);
+    return ResponseEntity.ok().body(account);
   }
 }
