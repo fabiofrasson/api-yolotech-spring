@@ -2,11 +2,14 @@ package com.yolotech.api.services;
 
 import com.yolotech.api.entities.Course;
 import com.yolotech.api.repositories.CourseRepository;
+import com.yolotech.api.services.exceptions.DatabaseException;
 import com.yolotech.api.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,13 +36,19 @@ public class CourseService {
       courseRepository.deleteById(id);
     } catch (EmptyResultDataAccessException e) {
       throw new ResourceNotFoundException(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new DatabaseException(e.getMessage());
     }
   }
 
   public Course update(Long id, Course course) {
-    Course courseEntity = courseRepository.getOne(id);
-    updateData(courseEntity, course);
-    return courseRepository.save(courseEntity);
+    try {
+      Course courseEntity = courseRepository.getOne(id);
+      updateData(courseEntity, course);
+      return courseRepository.save(courseEntity);
+    } catch (EntityNotFoundException e) {
+      throw new ResourceNotFoundException(id);
+    }
   }
 
   private void updateData(Course courseEntity, Course course) {
