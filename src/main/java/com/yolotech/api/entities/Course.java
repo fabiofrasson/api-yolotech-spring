@@ -47,8 +47,8 @@ public class Course implements Serializable {
 
   private Integer courseStatus;
 
-  private boolean isEdited;
-  private boolean isActive;
+  private boolean edited;
+  private boolean active;
 
   public Course() {}
 
@@ -77,8 +77,8 @@ public class Course implements Serializable {
     this.slug = slug;
     this.regDate = regDate;
     setCourseStatus(courseStatus);
-    this.isEdited = isEdited;
-    this.isActive = isActive;
+    this.edited = isEdited;
+    this.active = isActive;
   }
 
   public static long getSerialVersionUID() {
@@ -171,19 +171,27 @@ public class Course implements Serializable {
     }
   }
 
+  public Account getUser() {
+    return user;
+  }
+
+  public void setUser(Account user) {
+    this.user = user;
+  }
+
   public boolean isEdited() {
-    return isEdited;
+    return edited;
   }
 
   public void setEdited(boolean edited) {
-    isEdited = edited;
+    edited = edited;
   }
 
   public boolean isActive() {
-    return isActive;
+    return active;
   }
 
   public void setActive(boolean active) {
-    isActive = active;
+    active = active;
   }
 }

@@ -26,7 +26,7 @@ public class Account implements Serializable {
   private String github;
   private String linkedIn;
   private String passwd;
-  private Integer accRole;
+  private AccRole accRole;
 
   @OneToMany(mappedBy = "user")
   private List<Course> courseList = new ArrayList<>();
@@ -142,12 +142,12 @@ public class Account implements Serializable {
   }
 
   public AccRole getAccRole() {
-    return AccRole.valueOf(accRole);
+    return accRole;
   }
 
   public void setAccRole(AccRole accRole) {
     if (accRole != null) {
-      this.accRole = accRole.getCode();
+      this.accRole = accRole;
     }
   }
 
