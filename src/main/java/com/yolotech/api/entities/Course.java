@@ -47,8 +47,8 @@ public class Course implements Serializable {
 
   private Integer courseStatus;
 
-  private boolean isEdited;
-  private boolean isActive;
+  private boolean edited;
+  private boolean active;
 
   public Course() {}
 
@@ -169,6 +169,14 @@ public class Course implements Serializable {
     if (courseStatus != null) {
       this.courseStatus = courseStatus.getCode();
     }
+  }
+
+  public Account getUser() {
+    return user;
+  }
+
+  public void setUser(Account user) {
+    this.user = user;
   }
 
   public boolean isEdited() {
